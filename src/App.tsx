@@ -151,6 +151,13 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
               >
                 {status === "loading" ? "Sending…" : "Send hash"}
               </button>
+              <a
+                href="/encoder.zip"
+                download
+                className="px-5 py-2.5 rounded-2xl border border-white/20 bg-white/10 hover:bg-white/15 text-white font-semibold shadow inline-flex items-center justify-center"
+              >
+                Download estimator
+              </a>
               <span className="text-sm text-white/60">Endpoint: <code className="text-white/90">{apiPath}</code></span>
             </div>
 
