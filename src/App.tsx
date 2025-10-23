@@ -100,10 +100,10 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-5xl font-semibold tracking-tight text-white"
           >
-            Send Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#b388ff] to-[#80deea]">Hash</span>
+            Your data <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#b388ff] to-[#80deea]">never leaves</span>
           </motion.h1>
           <p className="mt-4 text-white/70 max-w-2xl">
-            Prediction is not enough; action is. Paste a hash (MD5/SHA\u2212family) and securely submit it to our backend.
+            Download our estimator, run it easily on your computer, and securely submit the hash code it produces.
           </p>
 
           {/* Stat Pills */}
@@ -112,7 +112,7 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
               { label: "TRIALS SHELVED GLOBALLY", value: "90%" },
               { label: "CAPITAL EFFICIENCY", value: "\u2193 Costs" },
               { label: "FEWER PATIENTS NEEDED", value: "\u2191 Ethics" },
-              { label: "NEXT PARADIGM", value: "AI \u2794 Causal" },
+              { label: "NEXT PARADIGM", value: "RWD \u2794 Causal" },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl p-4 border border-white/10 bg-white/5">
                 <div className="text-xl font-semibold">{s.value}</div>
@@ -126,9 +126,15 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
       {/* Hash Form */}
       <section className="mx-auto max-w-4xl px-4 pb-24">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 shadow-2xl">
-          <h2 className="text-xl md:text-2xl font-semibold">Submit a hash</h2>
-          <p className="mt-2 text-sm text-white/70">Your hash never leaves this page except for a single POST request to the configured endpoint.</p>
-
+          <h2 className="text-xl md:text-2xl font-semibold">Submit your partial evidence</h2>
+          <p className="mt-2 text-sm text-white/70">First, download our estimator and open it in your web browser. Simply copy and paste your data to run it locally. It will generate a code string — that’s the one you need to paste below.</p>
+<a
+                href="/encoder.zip"
+                download
+                className="px-5 py-2.5 rounded-2xl border border-white/20 bg-white/10 hover:bg-white/15 text-white font-semibold shadow inline-flex items-center justify-center"
+              >
+                Download estimator
+              </a>
           <form onSubmit={onSubmit} className="mt-6 grid gap-4">
             <label htmlFor="hash" className="text-sm text-white/80">Hash string</label>
             <input
@@ -144,6 +150,7 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
             />
 
             <div className="flex items-center gap-3 mt-2">
+               
               <button
                 type="submit"
                 disabled={status === "loading"}
@@ -151,13 +158,7 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
               >
                 {status === "loading" ? "Sending…" : "Send hash"}
               </button>
-              <a
-                href="/encoder.zip"
-                download
-                className="px-5 py-2.5 rounded-2xl border border-white/20 bg-white/10 hover:bg-white/15 text-white font-semibold shadow inline-flex items-center justify-center"
-              >
-                Download estimator
-              </a>
+             
               <span className="text-sm text-white/60">Endpoint: <code className="text-white/90">{apiPath}</code></span>
             </div>
 
