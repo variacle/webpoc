@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 // --- Optional: if you use shadcn/ui in your project ---
@@ -24,6 +24,9 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
   const [hash, setHash] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState<string | null>(null);
+
+  const [solutionStatus, setSolutionStatus] = useState<string | null>(null);
+  const [solutionValue, setSolutionValue] = useState<string | null>(null);
 
   const isValidHash = (s: string) => {
     // Allow common hex digests (MD5 32, SHA1 40, SHA256 64, SHA512 128) or base64-ish
@@ -64,6 +67,31 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
       setMessage(err?.message || "Something went wrong. Try again.");
     }
   };
+
+  useEffect(() => {
+    const fetchSolution = async () => {
+      try {
+        const res = await fetch("https://backend-m6cm.onrender.com/solution/second");
+        if (!res.ok) {
+          throw new Error(`Failed to fetch: ${res.status}`);
+        }
+        const data = await res.json();
+        setSolutionStatus(data.status || null);
+        if (data.status === "ok") {
+          setSolutionValue(data.value || null);
+        } else {
+          setSolutionValue(null);
+        }
+      } catch {
+        setSolutionStatus(null);
+        setSolutionValue(null);
+      }
+    };
+
+    fetchSolution();
+    const interval = setInterval(fetchSolution, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0b1022] via-[#101735] to-[#0b0f24] text-white">
@@ -174,16 +202,20 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
               </div>
             )}
           </form>
+        </div>
+      </section>
 
-          {/* Developer notes */}
-          <details className="mt-6 text-xs text-white/50">
-            <summary className="cursor-pointer hover:text-white/70">Implementation notes</summary>
-            <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li>Adjust <code>API_PATH_DEFAULT</code> or pass <code>apiPath</code> prop.</li>
-              <li>Server should accept JSON <code>{`{ hash: string }`}</code> and return JSON with a <code>message</code> field.</li>
-              <li>For Next.js, create <code>app/api/submit-hash/route.ts</code> (Edge/runtime OK).</li>
-            </ul>
-          </details>
+      {/* Solution Output Box */}
+      <section className="mx-auto max-w-4xl px-4 pb-24">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 shadow-2xl text-center">
+          <h3 className="text-lg font-semibold mb-4">Solution Output</h3>
+          {solutionStatus === "ok" && solutionValue ? (
+            <div className="text-white text-base break-words">{solutionValue}</div>
+          ) : solutionStatus === "waiting" ? (
+            <div className="text-white/70 italic">Waiting for computation...</div>
+          ) : (
+            <div className="text-white/50 italic">No data available.</div>
+          )}
         </div>
       </section>
 
