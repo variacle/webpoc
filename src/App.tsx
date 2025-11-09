@@ -97,7 +97,7 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
     <div className="min-h-screen bg-gradient-to-b from-[#0b1022] via-[#101735] to-[#0b0f24] text-white">
       {/* Top Bar */}
       <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/5">
-        <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+        <div className="mx-auto max-w-[1600px] px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src={logoSrc} alt="Variacle" className="h-8 w-auto"/>
             <span className="sr-only">Variacle</span>
@@ -121,7 +121,7 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
                style={{ background: "radial-gradient(closest-side, #00e5ff, transparent)" }} />
         </div>
 
-        <div className="mx-auto max-w-4xl px-4 pt-16 pb-6">
+        <div className="mx-auto max-w-[1600px] px-4 pt-16 pb-6">
           <motion.h1
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -152,12 +152,12 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
       </section>
 
       {/* Hash Form */}
-      <section className="mx-auto max-w-4xl px-4 pb-24">
+      <section className="mx-auto max-w-[1600px] px-4 pb-24">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 shadow-2xl">
           <h2 className="text-xl md:text-2xl font-semibold">Submit your partial evidence</h2>
           <p className="mt-2 text-sm text-white/70">First, download our estimator and open it in your web browser. Simply copy and paste your data to run it locally. It will generate a code string — that’s the one you need to paste below.</p>
 <a
-                href="/encoder.zip"
+                href="/estimator.html"
                 download
                 className="px-5 py-2.5 rounded-2xl border border-white/20 bg-white/10 hover:bg-white/15 text-white font-semibold shadow inline-flex items-center justify-center"
               >
@@ -206,7 +206,7 @@ export default function App({ apiPath = API_PATH_DEFAULT, logoSrc = "/variacle-l
       </section>
 
       {/* Solution Output Box */}
-      <section className="mx-auto max-w-4xl px-4 pb-24">
+      <section className="mx-auto max-w-[1600px] px-4 pb-24">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 shadow-2xl text-center">
           <h3 className="text-lg font-semibold mb-4">Solution Output</h3>
           {solutionStatus === "ok" && solutionValue ? (
